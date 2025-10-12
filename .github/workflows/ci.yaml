@@ -43,9 +43,7 @@ jobs:
         uses: golangci/golangci-lint-action@v6
         with:
           version: v1.59.1
-          args: --disable goanalysis_metalinter
-
-  
+          
   push:
     runs-on: ubuntu-latest
 
