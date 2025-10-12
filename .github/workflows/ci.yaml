@@ -36,14 +36,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: v1.60.0
-          args: --timeout=1m
+    - name: Set up Go 1.22
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.22
+
+    - name: Install GolangCI-Lint
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $GOPATH/bin v1.60.0
+        echo "$GOPATH/bin" >> $GITHUB_PATH
+
+    - name: Run GolangCI-Lint
+      run: golangci-lint run --timeout 1m
+
 
 
   push:
