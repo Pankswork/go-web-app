@@ -11,6 +11,7 @@ on:
       - 'helm/**'
       - 'k8s/**'
       - 'README.md'
+      - 'helm/go-web-app-chart/values.yaml'
 
 jobs:
   build:
