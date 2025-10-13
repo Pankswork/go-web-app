@@ -62,7 +62,7 @@ jobs:
       uses: golangci/golangci-lint-action@v6
       with:
         version: latest
-        args: run ./...
+        args: ./...
 
     - name: Run Unit Tests
       run: go test ./... -v
