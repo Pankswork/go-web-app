@@ -13,7 +13,6 @@ on:
       - 'README.md'
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -31,29 +30,42 @@ jobs:
 
     - name: Test
       run: go test ./...
-  
-  code-quality:
+
+  codequality:
+    name: Run Go Code Quality Checks
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout Code
       uses: actions/checkout@v4
 
     - name: Set up Go
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@v5
       with:
         go-version: 1.22
 
-    - name: Install GolangCI-Lint
+    - name: Verify Dependencies
+      run: go mod tidy
+
+    - name: Check Code Formatting
       run: |
-        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b /usr/local/bin v1.60.0
+        gofmt -l .
+        if [ "$(gofmt -l . | wc -l)" -gt 0 ]; then
+          echo "❌ Some files are not formatted. Run 'gofmt -w .'"
+          exit 1
+        fi
 
-    - name: Run GolangCI-Lint
-      run: |
-        golangci-lint run --timeout=1m
+    - name: Run Go Vet (Static Analysis)
+      run: go vet ./...
 
+    - name: Run Linter (golangci-lint)
+      uses: golangci/golangci-lint-action@v6
+      with:
+        version: latest
+        args: run ./...
 
-
+    - name: Run Unit Tests
+      run: go test ./... -v
 
   push:
     runs-on: ubuntu-latest
