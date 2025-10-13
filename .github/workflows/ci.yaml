@@ -12,6 +12,7 @@ on:
       - 'k8s/**'
       - 'README.md'
       - 'helm/go-web-app-chart/values.yaml'
+      - Helm/go-web-app-chart/values.yaml
 
 jobs:
   build:
