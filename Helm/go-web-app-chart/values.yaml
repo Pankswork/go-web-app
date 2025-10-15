@@ -4,7 +4,7 @@ replicas: 1
 image:
   repository: pankswork/go-web-app
   pullpolicy: IfNotPresent
-  tag: v1
+  tag: "18528414959"
 
 ingress:
   enabled: flase
