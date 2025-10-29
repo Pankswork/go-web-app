@@ -118,11 +118,17 @@ Add your address and host in the file and save it:-
 2.For people who uses WSL ubuntu they have to do DNS mapping in their windows system too:
 
 Open Notepad as Administrator>Press Windows Key
+
 Type: Notepad>Right-click → Run as administrator
+
 Open the hosts file>In Notepad, go to:
+
 File → Open → C:\Windows\System32\drivers\etc\hosts
+
 Change file type from “Text Documents” to “All Files (.)” so you can see it.>Add your mapping at the bottom
+
 98.91.154.113 go-web-app.local
+
 Replace 3.226.116.223 with your actual Load Balancer IP or DNS name if it resolves to multiple IPs.>Save and close.
 
 Now visit go-web-app.local/home.
@@ -176,7 +182,9 @@ helm create go-web-app-chart
 ```
 
 Then go to template folder and delete all files and then copy paste your deployment,service and ingress.yaml here.
+
 Go to values.yaml file under go-web-app-chat and update it for image tag fetching.
+
 Go to deployment.yaml and update image: pankswork/go-web-app:v1 to image: pankswork/go-web-app:{{ .Values.image.tag }} so that we can variablize image tag.
 
 Now delete all deployment,service and ingress:
