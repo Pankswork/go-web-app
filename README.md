@@ -2,33 +2,29 @@
 
 This is a simple website written in Golang. It uses the `net/http` package to serve HTTP requests.
 
----
-
 ## Prerequisites
 
-- **kubectl** – A command line tool for working with Kubernetes clusters.  
+kubectl – A command line tool for working with Kubernetes clusters.  
   For more information, see *Installing or updating kubectl*.
 
-- **eksctl** – A command line tool for working with EKS clusters that automates many individual tasks.  
+eksctl – A command line tool for working with EKS clusters that automates many individual tasks.  
   For more information, see *Installing or updating eksctl*.
 
-- **AWS CLI** – A command line tool for working with AWS services, including Amazon EKS.  
+AWS CLI – A command line tool for working with AWS services, including Amazon EKS.  
   For more information, see *Installing, updating, and uninstalling the AWS CLI*.  
   After installing the AWS CLI, configure it using:
-  ```bash
-  aws configure
 
-
+```bash
+aws configure
+```
 
 ## Running the server
-
 
 To run the server locally , execute the following command:
 
 ```bash
 go build -o main .
 ./main
-
 ```
 
 The server will start on port 8080. You can access it by navigating to `http://localhost:8080/Home` in your web browser.
@@ -47,10 +43,12 @@ DevOps practices include the following:
 # Create a Docker file
 
 Create,build and run it to check if it's working or not.
+
 ```bash
 docker build -t pankswork/go-web-app-test-1:v1 .
 docker run -p 8080:8080 -it pankswork/go-web-app-test-1:v1
 ```
+
 Visit http://localhost:8080/home
 
 # Create folder k8s/manifests
@@ -134,14 +132,11 @@ Now visit go-web-app.local/home.
 # Implement Helm:
 
 Why helm?
-
 Helm is like a package manager for Kubernetes — similar to how apt is for Ubuntu or npm is for Node.js.
 It simplifies deploying, upgrading, and managing complex Kubernetes applications.
 
 Without Helm:
-
 You would manually create and manage multiple YAML files:
-
 deployment.yaml
 service.yaml
 ingress.yaml
@@ -150,17 +145,14 @@ secret.yaml
 and so on...
 
 When you want to:
-
 change an image tag,
 add an environment variable,
 or update replicas,
 you’d have to edit several YAMLs and reapply them one by one — very error-prone.
 
 With Helm:
-
 Helm bundles all those YAMLs into a single “chart” — a reusable, versioned package of Kubernetes resources.
 For example, instead of running:
-
 ```bash
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
@@ -173,7 +165,6 @@ helm install go-web-app ./go-web-app-chart
 ```
 
 And Helm will:
-
 Create all resources
 Inject values dynamically (from values.yaml)
 Track versions (so you can roll back)
@@ -235,6 +226,7 @@ Password:(For Password run :
 ```bash
 kubectl get secrets -n argocd
 kubectl edit secret argocd-initial-admin-secret -n argocd 
+
 #copy password eg:-S3dsOXZGRDBTS0Z2cmRkYg== then run: 
 echo S3dsOXZGRDBTS0Z2cmRkYg== | base64 --decode 
 ```
@@ -243,3 +235,5 @@ copy the password to login)
 
 CLick on New App>Update only these values:
 Application name:go-web-app,Project name:default,sync policy:auto,Tick Self Heal,Repo :Your Github Repo URL,path with updated there you have to select,cluster url :default,namespace:default,value files:values.yaml then click on create.
+
+Once its synced and healthy you can with the app via argocd and local host.
