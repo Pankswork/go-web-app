@@ -1,0 +1,16 @@
+replicas: 1
+
+
+image:
+  repository: pankswork/go-web-app
+  pullpolicy: IfNotPresent
+  tag: v1
+
+ingress:
+  enabled: flase
+  className: ""
+  hosts: 
+    - host: chart-example.local
+      paths:
+        -path: /
+        pathType: ImplementationSpecific
